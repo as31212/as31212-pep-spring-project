@@ -51,7 +51,7 @@ public class SocialMediaController {
         }
     }
 
-    // Todo this is wrong
+    // Todo this is incorrect
     @PostMapping("login")
     public @ResponseBody ResponseEntity<?> login(@RequestBody Account account){
        try {
