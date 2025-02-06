@@ -30,25 +30,26 @@ public class AccountService {
         }
 
         // check to determine if if username exists
-        if(accountRepository.findAccountByUsername(account.getUsername()) == null){
+        if(accountRepository.findAccountByUsername(account.getUsername()) != null){
          throw new DuplicateUsernameException("Username already exists");
       }
 
       return accountRepository.save(account);
     }
 
+    // todo this is wrong
     public Account login(Account account)throws InvalidLoginException{
 
-        Optional<Account> user = accountRepository.findById(account.getAccountId());
+        Account user = accountRepository.findAccountByUsername(account.getUsername());
         // determine if username is matching
-        if(user.isEmpty()){
+        if(user == null){
             throw new InvalidLoginException("Account does not exist");
         }
         //  determine if password is matching
-        if(user.get().getPassword().equals(account.getPassword()) ){
+        if(user.getPassword().equals(account.getPassword()) ){
             throw new InvalidLoginException("Password is incorrect");
         }
-        return user.get();
+        return user;
     }
 
 }
