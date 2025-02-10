@@ -1,8 +1,13 @@
 package com.example.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,6 +74,51 @@ public class SocialMediaController {
        }
     }
 
+    @GetMapping("/messages")
+    public @ResponseBody ResponseEntity<?> fetchAll(){
+        return ResponseEntity.status(200).body(messageService.fetchAllMessages());
+    }
+
+    @GetMapping("/messages/{messageId}")
+    public @ResponseBody ResponseEntity<?> fetchById(@PathVariable int messageId){
+        return ResponseEntity.status(200).body(messageService.fetchMessageById(messageId));
+    }
+
+    @DeleteMapping("/messages/{messageId}")
+    public @ResponseBody ResponseEntity<?> deleteById(@PathVariable int messageId){
+        int delete = messageService.deleteById(messageId);
+
+        if(delete == 1){
+            return ResponseEntity.status(200).body(delete);
+        }
+
+        return ResponseEntity.status(200).body(null);
+    }
+
+    @PatchMapping("/messages/{messageId}")
+    public @ResponseBody ResponseEntity<?> updateById(@PathVariable int messageId, @RequestBody Map<String, String> requestBody) {
+    try {
+        String messageText = requestBody.get("messageText");
+        return ResponseEntity.status(200).body(messageService.updateMessageTextById(messageId, messageText));
+    } catch (Exception e) {
+        return ResponseEntity.status(400).body(e.getMessage());
+    } 
+}
+
+    @GetMapping("accounts/{accountId}/messages")
+    public @ResponseBody ResponseEntity<?> fetchUserMessages(@PathVariable int accountId){
+        return ResponseEntity.status(200).body(messageService.fetchAllMessagesByUserId(accountId));
+    }
+
+    @PostMapping("/messages")
+    public @ResponseBody ResponseEntity<?> createMessage(@RequestBody Message message){
+        try {
+            return ResponseEntity.status(200).body(messageService.postMessage(message));
+            
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
 }
 
 

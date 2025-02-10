@@ -57,7 +57,7 @@ As a user, I should be able to create a new Account on the endpoint POST localho
 
 ## 2:[] Our API should be able to process User logins.
 -[x] Service
--[] Controller
+-[x] Controller
 
 As a user, I should be able to verify my login on the endpoint POST localhost:8080/login. The request body will contain a JSON representation of an Account.
 
@@ -76,7 +76,7 @@ As a user, I should be able to submit a new post on the endpoint POST localhost:
 
 ## 4: Our API should be able to retrieve all messages.
 -[x] Service
--[] Controller
+-[x] Controller
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages.
 
@@ -84,7 +84,7 @@ As a user, I should be able to submit a GET request on the endpoint GET localhos
 
 ## 5: Our API should be able to retrieve a message by its ID.
 -[x] Service
--[] Controller
+-[x] Controller
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages/{messageId}.
 
@@ -92,7 +92,7 @@ As a user, I should be able to submit a GET request on the endpoint GET localhos
 
 ## 6: Our API should be able to delete a message identified by a message ID.
 -[x] Service
--[] Controller
+-[x] Controller
 
 As a User, I should be able to submit a DELETE request on the endpoint DELETE localhost:8080/messages/{messageId}.
 
@@ -101,7 +101,7 @@ As a User, I should be able to submit a DELETE request on the endpoint DELETE lo
 
 ## 7: Our API should be able to update a message text identified by a message ID.
 -[x] Service
--[] Controller
+-[x] Controller
 
 As a user, I should be able to submit a PATCH request on the endpoint PATCH localhost:8080/messages/{messageId}. The request body should contain a new messageText values to replace the message identified by messageId. The request body can not be guaranteed to contain any other information.
 
@@ -110,7 +110,7 @@ As a user, I should be able to submit a PATCH request on the endpoint PATCH loca
 
 ## 8: Our API should be able to retrieve all messages written by a particular user.
 -[x] Service
--[] Controller
+-[x] Controller
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/accounts/{accountId}/messages.
 
