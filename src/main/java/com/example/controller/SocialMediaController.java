@@ -12,6 +12,7 @@ import com.example.entity.Account;
 import com.example.entity.Message;
 import com.example.exception.DuplicateUsernameException;
 import com.example.exception.InvalidLoginException;
+import com.example.exception.InvalidLoginPasswordException;
 import com.example.exception.InvalidRegistrationException;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
@@ -51,18 +52,23 @@ public class SocialMediaController {
         }
     }
 
-    // Todo this is incorrect
+    
     @PostMapping("login")
     public @ResponseBody ResponseEntity<?> login(@RequestBody Account account){
        try {
             return ResponseEntity.status(200).body(accountService.login(account));
        }
        catch(InvalidLoginException e){
-            return ResponseEntity.status(402).body(e.getMessage());
+            return ResponseEntity.status(401).body(e.getMessage());
        }
-       catch (Exception e) {
-            return ResponseEntity.status(401).body("Unexpected error occurred");
-       } 
+       catch (InvalidLoginPasswordException e) {
+            return ResponseEntity.status(401).body(e.getMessage());
+       }
+       catch(Exception e){
+            return ResponseEntity.status(401).body("Unexpected Error occurred");
+       }
     }
 
 }
+
+

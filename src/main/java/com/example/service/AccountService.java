@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.entity.Account;
 import com.example.exception.DuplicateUsernameException;
 import com.example.exception.InvalidLoginException;
+import com.example.exception.InvalidLoginPasswordException;
 import com.example.exception.InvalidRegistrationException;
 import com.example.repository.AccountRepository;
 
@@ -37,8 +38,8 @@ public class AccountService {
       return accountRepository.save(account);
     }
 
-    // todo this is wrong
-    public Account login(Account account)throws InvalidLoginException{
+    
+    public Account login(Account account)throws InvalidLoginException,InvalidLoginPasswordException{
 
         Account user = accountRepository.findAccountByUsername(account.getUsername());
         // determine if username is matching
@@ -46,8 +47,8 @@ public class AccountService {
             throw new InvalidLoginException("Account does not exist");
         }
         //  determine if password is matching
-        if(user.getPassword().equals(account.getPassword()) ){
-            throw new InvalidLoginException("Password is incorrect");
+        if(!user.getPassword().equals(account.getPassword()) ){
+            throw new InvalidLoginPasswordException("Password is incorrect");
         }
         return user;
     }
